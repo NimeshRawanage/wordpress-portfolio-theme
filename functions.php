@@ -31,6 +31,38 @@ function portfolio_enqueue_styles() {
 }
 add_action('wp_enqueue_scripts', 'portfolio_enqueue_styles');
 
+// Register Custom Post Type: Portfolio
+function portfolio_custom_post_type() {
+    $labels = array(
+        'name'               => 'Portfolio',
+        'singular_name'      => 'Project',
+        'menu_name'          => 'Portfolio',
+        'name_admin_bar'     => 'Portfolio',
+        'add_new'            => 'Add New',
+        'add_new_item'       => 'Add New Project',
+        'new_item'           => 'New Project',
+        'edit_item'          => 'Edit Project',
+        'view_item'          => 'View Project',
+        'all_items'          => 'All Projects',
+        'search_items'       => 'Search Portfolio',
+        'not_found'          => 'No projects found.',
+        'not_found_in_trash' => 'No projects found in Trash.'
+    );
+
+    $args = array(
+        'labels'             => $labels,
+        'public'             => true,
+        'menu_icon'          => 'dashicons-portfolio',
+        'supports'           => array('title', 'editor', 'thumbnail', 'excerpt'),
+        'has_archive'        => true,
+        'rewrite'            => array('slug' => 'portfolio'),
+        'show_in_rest'       => true, // Enables Gutenberg editor support
+    );
+
+    register_post_type('portfolio', $args);
+}
+add_action('init', 'portfolio_custom_post_type');
+
 
 
 

@@ -1,4 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
+  // ==============================
+  // Toggle Dark Mode
+  // ==============================
   const toggleButton = document.createElement("button");
   toggleButton.innerText = "Toggle Dark Mode";
   toggleButton.style.position = "fixed";
@@ -17,4 +20,23 @@ document.addEventListener("DOMContentLoaded", function () {
   toggleButton.addEventListener("click", function () {
     document.body.classList.toggle("dark-mode");
   });
+
+  // ==============================
+  // Mobile Menu Toggle
+  // ==============================
+  const menuToggle = document.getElementById("mobile-menu-toggle");
+  const navMenu = document.querySelector(".nav-menu");
+
+  if (menuToggle && navMenu) {
+    menuToggle.addEventListener("click", function () {
+      navMenu.classList.toggle("active");
+
+      // Ensure clicking the button doesn't close instantly
+      setTimeout(() => {
+        navMenu.style.display = navMenu.classList.contains("active")
+          ? "flex"
+          : "none";
+      }, 10);
+    });
+  }
 });

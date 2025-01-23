@@ -7,29 +7,34 @@
         <p><?php bloginfo('description'); ?></p>
     </section>
 
-    <!-- Portfolio Showcase -->
+    <!-- Portfolio Section -->
     <section class="portfolio">
-        <h2>My Work</h2>
-        <div class="portfolio-grid">
-            <?php
-            $args = array('post_type' => 'portfolio', 'posts_per_page' => 6);
-            $portfolio_query = new WP_Query($args);
-            if ($portfolio_query->have_posts()) :
-                while ($portfolio_query->have_posts()) : $portfolio_query->the_post();
-            ?>
+    <h2>My Work</h2>
+    <div class="portfolio-grid">
+        <?php
+        $portfolio_query = new WP_Query(array(
+            'post_type' => 'portfolio',
+            'posts_per_page' => 6
+        ));
+
+        if ($portfolio_query->have_posts()) :
+            while ($portfolio_query->have_posts()) : $portfolio_query->the_post(); ?>
                 <div class="portfolio-item">
                     <a href="<?php the_permalink(); ?>">
-                        <?php the_post_thumbnail(); ?>
+                        <?php if (has_post_thumbnail()) : ?>
+                            <img src="<?php the_post_thumbnail_url('medium'); ?>" alt="<?php the_title(); ?>">
+                        <?php endif; ?>
                         <h3><?php the_title(); ?></h3>
                     </a>
                 </div>
             <?php endwhile;
-            else : ?>
-                <p>No projects found.</p>
-            <?php endif;
-            wp_reset_postdata(); ?>
-        </div>
-    </section>
+            wp_reset_postdata();
+        else : ?>
+            <p>No projects found.</p>
+        <?php endif; ?>
+    </div>
+</section>
+
 
     <!-- About Section -->
     <section class="about">
@@ -49,4 +54,3 @@
 </main>
 
 <?php get_footer(); ?>
-
